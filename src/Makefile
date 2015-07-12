@@ -1,2 +1,2 @@
-sort: sort.c
-	gcc -o sort sort.c
+sorting: sorting.c
+	gcc -o sorting sorting.c
