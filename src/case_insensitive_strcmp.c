@@ -1,7 +1,5 @@
-int case_insensitive_strcmp(const void* a1, const void* b1)
+int case_insensitive_strcmp(const char* a, const char* b)
 {
-    char* a = (char*)a1;
-    char* b = (char*)b1;
     char a_letter, b_letter;
 
     for(int i = 0; ((a[i] != '\0') && (b[i] != '\0')); i++)
@@ -43,4 +41,9 @@ int case_insensitive_strcmp(const void* a1, const void* b1)
     {
         return 1;
     }
+}
+
+int r_case_insensitive_strcmp(const char* a, const char* b)
+{
+    return ((-1) * case_insensitive_strcmp(a, b));
 }
