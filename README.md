@@ -4,11 +4,11 @@ Teamlist:
 
 demcry - Дмитрий Чалков
 
-*TL* ArtyomChibiryov - Артём Чибирёв 
+ArtyomChibiryov - Артём Чибирёв  *TL* 
 
 PanyushevaEkaterina - Панюшева Екатерина
 
 bhumkong - Манянин Антон
 
-*QA* Lymsik - Самедова Лилия
+Lymsik - Самедова Лилия  *QA* 
 
