@@ -46,5 +46,5 @@ int case_insensitive_strcmp(const char* a, const char* b)
 
 int r_case_insensitive_strcmp(const char* a, const char* b)
 {
-    return ((-1) * case_insensitive_strcmp(a, b));
+    return -case_insensitive_strcmp(a, b);
 }
