@@ -1,8 +1,9 @@
 int case_insensitive_strcmp(const char* a, const char* b)
 {
     char a_letter, b_letter;
+    int i;
 
-    for(int i = 0; ((a[i] != '\0') && (b[i] != '\0')); i++)
+    for(i = 0; ((a[i] != '\0') && (b[i] != '\0')); i++)
     {
         a_letter = a[i];
         b_letter = b[i];
