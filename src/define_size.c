@@ -21,5 +21,5 @@ void define_size(FILE* file, int size_of_array[2])
 		}
 	}
 	size_of_array[0] = lines;
-	size_of_array[1] = max_length;
+	size_of_array[1] = max_length+1;
 }
