@@ -1,11 +1,3 @@
-#include <stdio.h>
-#include <string.h>
-
-int pars_args(int argc, char* argv[]);
-int main(int argc, char* argv[])
-{
-	if (pars_args(argc, argv) == -1) printf("wrong number of arguments\n");
-}
 int pars_args(int argc, char* argv[])
 {
 	if ((argc < 3) || (argc>4))
