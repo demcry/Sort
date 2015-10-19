@@ -3,6 +3,7 @@
 #include <string.h>
 #include "pars_args.h"
 #include "cmpfunc.h"
+#include "getbuf.h"
 
 int main(int argc, char* argv[])
 { 
@@ -48,11 +49,18 @@ int main(int argc, char* argv[])
 	}
     }
   
-  char *lineBuf[];
-  int bufSize = 100, bufLength = 0;
-  buf = (char**)malloc( bufSize*sizeof(char*) );
+  char **lineBuf;
+  int bufSize = 10, bufLength = 0;
+  lineBuf = (char**)malloc( bufSize*sizeof(char*) );
   fprintf(stderr, "Getting lines...\n");
-  //call getbuf();
+  getBuf(filein, &lineBuf, &bufSize, &bufLength);
+  
+  //[DBG]
+  //for(int i=0; lineBuf[i] != NULL; i++)
+  //{
+  //  fprintf(stdout, "%s", lineBuf[i]);
+  //}
+  //[EndDBG]
   
   if(cond & COND_IGN_CASE)
     {
