@@ -1,3 +1,6 @@
+#ifndef PARS_ARGS_H
+#define PARS_ARGS_H
+
 #define COND_ALPH_ORD 0x1
 #define COND_IGN_CASE 0x2
 #define COND_RAND 0x4
@@ -9,3 +12,5 @@
 #define COND_DEFAULT COND_ALPH_ORD
 
 void analyseTok(char *tok, int *cond, char **file);
+
+#endif

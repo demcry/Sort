@@ -6,6 +6,23 @@
 #include "cmpfunc.h"
 #include "getbuf.h"
 
+void showhelp()
+{
+  printf("Usage: sorting [options] [file]...\n\
+Options:\n\
+  -h, --help		Display this infomation\n\
+  -a, --alphabet	Sort lines in alphabetical order\n\
+  -r, --reverse		Sort lines in reverse order\n\
+  -i, --ignore_case	Ignore case\n\
+  -R, --random		Random permutation\n\
+  -v, --version		Display version information\n\
+\n\
+Default options are: --alphbet\n\
+If file is not specified, input will be taken from stdin, so can also combine sorting with other processes.\n\
+To complete input use <Enter>+<Ctrl+D> or <Ctrl+D> 3 times.\n\
+");
+}
+
 int main(int argc, char* argv[])
 { 
   srand(time(NULL));
@@ -16,16 +33,17 @@ int main(int argc, char* argv[])
     {
       analyseTok(argv[i], &cond, &file);
     }
-
+  
   if(cond & COND_ERR)
     {
-      fprintf(stderr, "Wrong keys!\nTry 'sort -h' for help\n");
+      fprintf(stderr, "Wrong keys!\nTry 'sorting -h' for help\n");
       exit(1);
     }
   
   if(cond & COND_HELP)
     {
-      fprintf(stderr, "Showing help page...\n");
+      //fprintf(stderr, "Showing help page...\n");
+      showhelp();
       exit(0);
     }
   
@@ -34,7 +52,7 @@ int main(int argc, char* argv[])
       fprintf(stderr, "Showing version info...\n");
       //continue execution
     }
-
+  
   FILE *filein = stdin;
   if(file == NULL)
     {
@@ -68,12 +86,7 @@ int main(int argc, char* argv[])
     {
       fclose(filein);
     }
-
-  if(cond & COND_IGN_CASE)
-    {
-      fprintf(stderr, "Ignoring case...\n");
-    }
-
+  
   if(cond & COND_ALPH_ORD)
     {
       if(cond & COND_IGN_CASE)
