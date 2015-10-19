@@ -27,6 +27,12 @@ int getBuf(FILE *stream, char ***buf, int *size, int *length)
       
       int tmplen = 0;
       for(; tmp[tmplen] != '\0'; tmplen++);//find length of line
+      if(tmp[tmplen-1] != '\n')
+	{
+	  tmp[tmplen] = '\n';
+	  tmp[tmplen+1] = '\0';
+	  tmplen++;
+	} 
       //[DBG]
       //printf("Legth = %d\n", tmplen);
       //[EndDBG]
@@ -36,7 +42,7 @@ int getBuf(FILE *stream, char ***buf, int *size, int *length)
 	  fprintf(stderr, "Error: Cannot allocate memory");
 	  exit(1);
 	}
-      strcpy( (*buf)[*length], tmp);
+      memcpy( (*buf)[*length], tmp, tmplen+1);
       (*length)++;
     }
 }

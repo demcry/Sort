@@ -1,31 +1,84 @@
-int pars_args(int argc, char* argv[])
+#include "pars_args.h"
+#include <stdio.h>
+#include <string.h>
+
+void analyseTok(char *tok, int *cond, char **file)
 {
-	if ((argc < 3) || (argc>4))
-		return -1; // wrong number of arguments
-	else
-		if (argv[1][0] != '-')
-			return -2; // wrong parameter
-		else
-			if ((strcmp(argv[1], "-a") == 0) || (strcmp(argv[1], "--alphabet") == 0))
-				return 1; // alphabetic order
-			else
-				if ((strcmp(argv[1], "-i") == 0) || (strcmp(argv[1], "--ignorecase") == 0))
-					return 2; // ignorecase
-				else
-					if ((strcmp(argv[1], "-i-r") == 0) || (strcmp(argv[1], "-r-i") == 0) || (strcmp(argv[1], "-ir") == 0) || (strcmp(argv[1], "-ri") == 0))
-						return 3; // ignorecase + reverse
-					else
-						if ((strcmp(argv[1], "-a-r") == 0) || (strcmp(argv[1], "-r-a") == 0) || (strcmp(argv[1], "-ra") == 0) || (strcmp(argv[1], "-ar") == 0))
-							return 4; // alphabetic + reverse
-						else
-							if ((strcmp(argv[1], "-R") == 0) || (strcmp(argv[1], "--random") == 0))
-								return 5; // random
-							else
-								if (strcmp(argv[1], "--help") == 0)
-									return 6; // help
-								else
-									if (strcmp(argv[1], "--version") == 0)
-										return 7; // version
-									else
-										return -3; // wrong parameter
+  if(tok == NULL)
+    {
+      fprintf(stderr, "[DBG] Error: NULL token\n");
+      return;
+    }
+  if(!strcmp(tok, "-h") || !strcmp(tok, "--help"))
+    {
+      *cond |= COND_HELP;
+      return;
+    }
+  if(!strcmp(tok, "-v") || !strcmp(tok, "--version"))
+    {
+      *cond |= COND_VER;
+      return;
+    }
+  if(!strcmp(tok, "-a") || !strcmp(tok, "--alphabet"))
+    {
+      *cond |= COND_ALPH_ORD;
+      *cond &= ~COND_RAND;
+      return;
+    }
+  if(!strcmp(tok, "-r") || !strcmp(tok, "--reverse"))
+    {
+      *cond &= ~COND_ALPH_ORD;
+      *cond &= ~COND_RAND;
+      return;
+    }
+  if(!strcmp(tok, "-R") || !strcmp(tok, "--random"))
+    {
+      *cond |= COND_RAND;
+      *cond &= ~COND_ALPH_ORD;
+      return;
+    }
+  if(!strcmp(tok, "-i") || !strcmp(tok, "--ignore-case"))
+    {
+      *cond |= COND_IGN_CASE;
+      return;
+    }
+  //short keys -ri -vR etc...
+  if(tok[0] == '-')
+    {
+      for(char *i = tok+1; *i != '\0'; i++)
+	{
+	  switch(*i)
+	    {
+	    case 'h':
+	      *cond |= COND_HELP;
+	      break;
+	    case 'v':
+	      *cond |= COND_VER;
+	      break;
+	    case 'a':
+	      *cond |= COND_ALPH_ORD;
+	      *cond &= ~COND_RAND;
+	      break;
+	    case 'r':
+	      *cond &= ~COND_ALPH_ORD;
+	      *cond &= ~COND_RAND;
+	      break;
+	    case 'R':
+	      *cond |= COND_RAND;
+	      *cond &= ~COND_ALPH_ORD;
+	      break;
+	    case 'i':
+	      *cond |= COND_IGN_CASE;
+	      break;
+	    default:
+	      *cond |= COND_ERR;
+	      return;
+	    };
+	}
+    }
+  else if( !(*cond & COND_FILE) )    //2nd and later files ignored
+    {
+      *cond |= COND_FILE;
+      *file = tok;
+    }
 }

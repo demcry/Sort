@@ -2,9 +2,11 @@ This is github of the 3rd group. (Project - Sorting)
 
 Teamlist:
 
+Sedfer - Илья Балов *TL*
+
 demcry - Дмитрий Чалков
 
-ArtyomChibiryov - Артём Чибирёв  *TL* 
+ArtyomChibiryov - Артём Чибирёв
 
 PanyushevaEkaterina - Панюшева Екатерина
 
