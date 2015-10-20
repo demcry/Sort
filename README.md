@@ -2,15 +2,22 @@ This is github of the 3rd group. (Project - Sorting)
 
 Teamlist:
 
-Sedfer - Илья Балов *TL*
+Sedfer - Илья Балов  *TL*
 
 demcry - Дмитрий Чалков
 
 ArtyomChibiryov - Артём Чибирёв
 
-PanyushevaEkaterina - Панюшева Екатерина
+PanyushevaEkaterina - Екатерина Панюшева
 
-bhumkong - Манянин Антон
+bhumkong - Антон Манянин
 
-Lymsik - Самедова Лилия  *QA* 
+Lymsik - Лилия Самедова  *QA* 
 
+#installation
+...
+git clone git@github.com:demcry/Sort.git
+cd Sort/src
+make
+sudo make install
+...

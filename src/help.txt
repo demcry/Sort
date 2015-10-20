@@ -8,5 +8,5 @@ Options:
   -v, --version		Display version information
 
 Default options are: --alphbet
-If file is not specified, input will be taken from stdin, so can also combine sorting with other processes.
+If file is not specified, input will be taken from stdin, so you can also combine sorting with other processes.
 To complete input use <Enter>+<Ctrl+D> or <Ctrl+D> 3 times.

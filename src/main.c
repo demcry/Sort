@@ -6,7 +6,7 @@
 #include "cmpfunc.h"
 #include "getbuf.h"
 
-#define VERSION "sorting version 2.3 \n"
+#define VERSION "sorting version 2.3a \n"
 
 void showhelp()
 {
@@ -20,7 +20,7 @@ Options:\n\
   -v, --version		Display version information\n\
 \n\
 Default options are: --alphbet\n\
-If file is not specified, input will be taken from stdin, so can also combine sorting with other processes.\n\
+If file is not specified, input will be taken from stdin, so you can also combine sorting with other processes.\n\
 To complete input use <Enter>+<Ctrl+D> or <Ctrl+D> 3 times.\n\
 ");
 }
@@ -129,5 +129,5 @@ int main(int argc, char* argv[])
       fprintf(stdout, "%s", lineBuf[i]);
     }
 
-  deleteBuf(&lineBuf);
+  deleteBuf(lineBuf);
 }

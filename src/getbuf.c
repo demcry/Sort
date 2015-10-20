@@ -18,7 +18,7 @@ void getBuf(FILE *stream, char ***buf, int *size, int *length)
         if( (newBuf) == NULL )
           {
             fprintf(stderr, "Error: Cannot allocate memory");
-	    deleteBuf(buf);
+	    deleteBuf(*buf);
             exit(1);
           }
 	*buf = newBuf;
@@ -42,7 +42,7 @@ void getBuf(FILE *stream, char ***buf, int *size, int *length)
       if( (*buf)[*length] == NULL )
 	{
 	  fprintf(stderr, "Error: Cannot allocate memory");
-	  deleteBuf(buf);
+	  deleteBuf(*buf);
 	  exit(1);
 	}
       memcpy( (*buf)[*length], tmp, tmplen+1);
@@ -50,12 +50,12 @@ void getBuf(FILE *stream, char ***buf, int *size, int *length)
     }
 }
 
-void deleteBuf(char ***buf)
+void deleteBuf(char **buf)
 {
-  for(int i=0; (*buf)[i] != NULL; i++)
+  for(int i=0; buf[i] != NULL; i++)
     {
-      free((*buf)[i]);
-      //fprintf(stderr, "Deleted memory %p\n", (*buf)[i]);
+      free(buf[i]);
+      //fprintf(stderr, "Deleted memory %p\n", buf[i]);
     }
-  free(*buf);
+  free(buf);
 }
