@@ -5,30 +5,43 @@
 
 void getBuf(FILE *stream, char ***buf, int *size, int *length)
 {
-  char tmp[256], __byte;
-  while( fgets(tmp, sizeof(tmp), stream) != NULL )
+  int tmpsize = 80;
+  char *tmp = (char*)malloc( tmpsize*sizeof(char) );
+  while( fgets(tmp, tmpsize, stream) != NULL )
     {
-      //[DBG]
-      //printf("Get line '%s'\n", tmp);
-      //[EndDBG]
+      // Expand array buf
       if( *size == *length)
       {
         *size *= 2;
         char **newBuf = (char**)realloc( *buf, (*size)*sizeof(char*) );
-        if( (newBuf) == NULL )
+        if(newBuf == NULL)
           {
             fprintf(stderr, "Error: Cannot allocate memory");
 	    deleteBuf(*buf);
+	    free(tmp);
             exit(1);
           }
 	*buf = newBuf;
-	//[DBG]
-	//printf("Expanded to %d\n", *size);
-	//[EndDBG]
       }
       
       int tmplen = 0;
       for(; tmp[tmplen] != '\0'; tmplen++);//find length of line
+      while(tmplen == tmpsize-1)
+	{
+	  tmpsize *= 2;
+	  char *newTmp = (char*)realloc( tmp, tmpsize*sizeof(char) );
+	  if(newTmp == NULL)
+	    {
+	      fprintf(stderr, "Error: Cannot allocate memory");
+	      deleteBuf(*buf);
+	      free(tmp);
+	      exit(1);
+	    }
+	  tmp = newTmp;
+	  fgets( &(tmp[tmplen]), tmpsize-tmplen, stream);
+	  for(; tmp[tmplen] != '\0'; tmplen++);//find length of line
+	}
+      
       if(tmp[tmplen-1] != '\n')
 	{
 	  tmp[tmplen] = '\n';
@@ -43,11 +56,14 @@ void getBuf(FILE *stream, char ***buf, int *size, int *length)
 	{
 	  fprintf(stderr, "Error: Cannot allocate memory");
 	  deleteBuf(*buf);
+	  free(tmp);
 	  exit(1);
 	}
       memcpy( (*buf)[*length], tmp, tmplen+1);
       (*length)++;
     }
+
+  free(tmp);
 }
 
 void deleteBuf(char **buf)
