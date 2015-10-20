@@ -3,9 +3,9 @@
 #include <string.h>
 #include "getbuf.h"
 
-int getBuf(FILE *stream, char ***buf, int *size, int *length)
+void getBuf(FILE *stream, char ***buf, int *size, int *length)
 {
-  char tmp[256];
+  char tmp[256], __byte;
   while( fgets(tmp, sizeof(tmp), stream) != NULL )
     {
       //[DBG]
@@ -14,12 +14,14 @@ int getBuf(FILE *stream, char ***buf, int *size, int *length)
       if( *size == *length)
       {
         *size *= 2;
-        *buf = (char**)realloc( *buf, (*size)*sizeof(char*) );
-        if( (*buf) == NULL )
+        char **newBuf = (char**)realloc( *buf, (*size)*sizeof(char*) );
+        if( (newBuf) == NULL )
           {
             fprintf(stderr, "Error: Cannot allocate memory");
+	    deleteBuf(buf);
             exit(1);
           }
+	*buf = newBuf;
 	//[DBG]
 	//printf("Expanded to %d\n", *size);
 	//[EndDBG]
@@ -40,6 +42,7 @@ int getBuf(FILE *stream, char ***buf, int *size, int *length)
       if( (*buf)[*length] == NULL )
 	{
 	  fprintf(stderr, "Error: Cannot allocate memory");
+	  deleteBuf(buf);
 	  exit(1);
 	}
       memcpy( (*buf)[*length], tmp, tmplen+1);
@@ -47,3 +50,12 @@ int getBuf(FILE *stream, char ***buf, int *size, int *length)
     }
 }
 
+void deleteBuf(char ***buf)
+{
+  for(int i=0; (*buf)[i] != NULL; i++)
+    {
+      free((*buf)[i]);
+      //fprintf(stderr, "Deleted memory %p\n", (*buf)[i]);
+    }
+  free(*buf);
+}

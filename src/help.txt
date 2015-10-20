@@ -3,7 +3,7 @@ Options:
   -h, --help		Display this infomation
   -a, --alphabet	Sort lines in alphabetical order
   -r, --reverse		Sort lines in reverse order
-  -i, --ignore_case	Ignore case
+  -i, --ignore-case	Ignore case
   -R, --random		Random permutation
   -v, --version		Display version information
 

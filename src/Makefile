@@ -15,3 +15,9 @@ getbuf.o: getbuf.c getbuf.h
 
 clean:
 	rm *.o ../bin/sorting
+
+install:
+	cp ../bin/sorting /usr/local/bin/sorting
+
+uninstall:
+	rm -f /usr/local/bin/sorting
