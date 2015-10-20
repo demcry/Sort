@@ -15,9 +15,9 @@ bhumkong - Антон Манянин
 Lymsik - Лилия Самедова  *QA* 
 
 #installation
-...
+```
 git clone git@github.com:demcry/Sort.git
 cd Sort/src
 make
 sudo make install
-...
+```
