@@ -26,6 +26,7 @@ void getBuf(FILE *stream, char ***buf, int *size, int *length)
       
       int tmplen = 0;
       for(; tmp[tmplen] != '\0'; tmplen++);//find length of line
+      //Expand array tmp
       while(tmplen == tmpsize-1)
 	{
 	  tmpsize *= 2;
@@ -48,9 +49,7 @@ void getBuf(FILE *stream, char ***buf, int *size, int *length)
 	  tmp[tmplen+1] = '\0';
 	  tmplen++;
 	} 
-      //[DBG]
-      //printf("Legth = %d\n", tmplen);
-      //[EndDBG]
+      
       (*buf)[*length] = (char*)malloc( (tmplen+1)*sizeof(char) );
       if( (*buf)[*length] == NULL )
 	{
@@ -71,7 +70,6 @@ void deleteBuf(char **buf)
   for(int i=0; buf[i] != NULL; i++)
     {
       free(buf[i]);
-      //fprintf(stderr, "Deleted memory %p\n", buf[i]);
     }
   free(buf);
 }

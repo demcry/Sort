@@ -5,6 +5,7 @@
 #include "pars_args.h"
 #include "cmpfunc.h"
 #include "getbuf.h"
+#include "rndsort.h"
 
 #define VERSION "sorting version 2.3a \n"
 
@@ -44,26 +45,19 @@ int main(int argc, char* argv[])
   
   if(cond & COND_HELP)
     {
-      //fprintf(stderr, "Showing help page...\n");
       showhelp();
       exit(0);
     }
   
   if(cond & COND_VER)
     {
-      //fprintf(stderr, "Showing version info...\n");
       printf(VERSION);
       exit(0);
     }
   
   FILE *filein = stdin;
-  if(file == NULL)
+  if(file != NULL)
     {
-      //fprintf(stderr, "Taking text from stdin...\n");
-    }
-  else
-    {
-      //fprintf(stderr, "Trying to open file '%s'...\n", file);
       filein = fopen(file, "r");
       if(filein == NULL)
 	{
@@ -75,15 +69,7 @@ int main(int argc, char* argv[])
   char **lineBuf;
   int bufSize = 100, bufLength = 0;
   lineBuf = (char**)malloc( bufSize*sizeof(char*) );
-  //fprintf(stderr, "Getting lines...\n");
   getBuf(filein, &lineBuf, &bufSize, &bufLength);
-  
-  //[DBG]
-  //for(int i=0; i<bufLength; i++)
-  //{
-  //  fprintf(stdout, "%d\t:%p\t:%s", i, lineBuf[i], lineBuf[i]);
-  //}
-  //[EndDBG]
   
   if(filein != stdin)
     {
@@ -94,13 +80,10 @@ int main(int argc, char* argv[])
     {
       if(cond & COND_IGN_CASE)
 	{
-	  //fprintf(stderr, "Ignoring case...\n");
-	  //fprintf(stderr, "Start sorting in alph order...\n");
 	  qsort(lineBuf, bufLength, sizeof(char*), ai_strcmp);
 	}
       else
 	{
-	  //fprintf(stderr, "Start sorting in alph order...\n");
 	  qsort(lineBuf, bufLength, sizeof(char*), a_strcmp);
 	}
     }
@@ -108,26 +91,23 @@ int main(int argc, char* argv[])
     {
       if(cond & COND_IGN_CASE)
 	{
-	  //fprintf(stderr, "Ignoring case...\n");
-	  //fprintf(stderr, "Start sorting in reverse order...\n");
 	  qsort(lineBuf, bufLength, sizeof(char*), ri_strcmp);
 	}
       else
 	{
-	  //fprintf(stderr, "Start sorting in reverse order...\n");
 	  qsort(lineBuf, bufLength, sizeof(char*), r_strcmp);
 	}
     }
   else
     {
-      //fprintf(stderr, "Start random sorting...\n");
-      qsort(lineBuf, bufLength, sizeof(char**), ran_strcmp);
+      rndsort(lineBuf, bufLength);
+      //qsort(lineBuf, bufLength, sizeof(char**), ran_strcmp);
     }
   
   for(int i=0; i<bufLength; i++)
     {
       fprintf(stdout, "%s", lineBuf[i]);
     }
-
+  
   deleteBuf(lineBuf);
 }
