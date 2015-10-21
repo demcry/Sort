@@ -1,26 +1,33 @@
-../bin/sorting: main.o pars_args.o cmpfunc.o getbuf.o rndsort.o
-	gcc main.o pars_args.o cmpfunc.o getbuf.o rndsort.o -o ../bin/sorting -std=c99
+INSTALL_PATH = /usr/local/bin/sorting
+SRCS = $(wildcard *.c)
+OBJS = $(SRCS:%.c=../obj/%.o)
+TARGET = ../bin/sorting
+CFLAGS = -std=c99
 
-main.o: main.c
-	gcc main.c -c -o main.o -std=c99
+.PHONY: all dirs clean install uninstall
 
-pars_args.o: pars_args.c pars_args.h
-	gcc pars_args.c -c -o pars_args.o -std=c99
+all: dirs $(TARGET)
 
-cmpfunc.o: cmpfunc.c cmpfunc.h
-	gcc cmpfunc.c -c -o cmpfunc.o -std=c99
+dirs:
+	@mkdir -p ../obj
+	@mkdir -p ../bin
 
-getbuf.o: getbuf.c getbuf.h
-	gcc getbuf.c -c -o getbuf.o -std=c99
+$(TARGET): $(OBJS)
+	@echo Linking sorting...
+	@$(CC) $(CFLAGS) $(OBJS) -o $(TARGET) && echo sorting successfully linked!
 
-rndsort.o: rndsort.c rndsort.h
-	gcc rndsort.c -c -o rndsort.o -std=c99
+$(OBJS): ../obj/%.o: %.c
+	@echo Compiling $<...
+	@$(CC) $(CFLAGS) $< -c -o $@
 
 clean:
-	rm *.o ../bin/sorting
+	@echo Cleaning...
+	@rm -f ../obj/*.o $(TARGET) && echo sorting directory successfully cleaned!
 
-install:
-	cp ../bin/sorting /usr/local/bin/sorting
+install: $(TARGET)
+	@echo Installing sorting...
+	@cp $(TARGET) $(INSTALL_PATH) && echo sorting successfully installed!
 
 uninstall:
-	rm -f /usr/local/bin/sorting
+	@echo Uninstalling sorting...
+	@rm -f $(INSTALL_PATH) && echo sorting successfully uninstalled!

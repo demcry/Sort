@@ -1,7 +1,7 @@
 #include <strings.h>
 #include <string.h>
 #include <stdlib.h>
-#include "cmpfunc.h"
+#include "../inc/cmpfunc.h"
 
 /* function, which compares 2 strings in reverse */
 int r_strcmp(const void* a, const void* b)

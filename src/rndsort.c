@@ -1,4 +1,4 @@
-#include "rndsort.h"
+#include "../inc/rndsort.h"
 #include <stdlib.h>
 #include <stdio.h>
 

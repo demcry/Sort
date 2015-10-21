@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "getbuf.h"
+#include "../inc/getbuf.h"
 
 void getBuf(FILE *stream, char ***buf, int *size, int *length)
 {
@@ -23,7 +23,7 @@ void getBuf(FILE *stream, char ***buf, int *size, int *length)
           }
 	*buf = newBuf;
       }
-      
+
       int tmplen = 0;
       for(; tmp[tmplen] != '\0'; tmplen++);//find length of line
       //Expand array tmp
@@ -42,14 +42,14 @@ void getBuf(FILE *stream, char ***buf, int *size, int *length)
 	  fgets( &(tmp[tmplen]), tmpsize-tmplen, stream);
 	  for(; tmp[tmplen] != '\0'; tmplen++);//find length of line
 	}
-      
+
       if(tmp[tmplen-1] != '\n')
 	{
 	  tmp[tmplen] = '\n';
 	  tmp[tmplen+1] = '\0';
 	  tmplen++;
-	} 
-      
+	}
+
       (*buf)[*length] = (char*)malloc( (tmplen+1)*sizeof(char) );
       if( (*buf)[*length] == NULL )
 	{

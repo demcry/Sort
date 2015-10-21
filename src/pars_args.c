@@ -1,4 +1,4 @@
-#include "pars_args.h"
+#include "../inc/pars_args.h"
 #include <stdio.h>
 #include <string.h>
 
