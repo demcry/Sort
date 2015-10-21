@@ -1,0 +1,12 @@
+Usage: sorting [options] [file]...
+Options:
+  -h, --help		Display this infomation
+  -a, --alphabet	Sort lines in alphabetical order
+  -r, --reverse		Sort lines in reverse order
+  -i, --ignore-case	Ignore case
+  -R, --random		Random permutation
+  -v, --version		Display version information
+
+Default options are: --alphbet
+If file is not specified, input will be taken from stdin, so you can also combine sorting with other processes.
+To complete input use <Enter>+<Ctrl+D> or <Ctrl+D> 3 times.
